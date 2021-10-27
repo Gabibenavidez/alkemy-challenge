@@ -1,14 +1,17 @@
 import {Col, Card, Button } from "react-bootstrap";
 import { useContext } from 'react';
 import { GlobalContext } from '../../context/GlobalContext';
-
+import { useHistory } from "react-router";
 
 const Character = ({character}) => {
     const {addHero} = useContext(GlobalContext);
+    const history = useHistory();
 
     const handleNewHero = (e) => {
         addHero(character);
+        history.push("/")
     }
+
     
     return (  
         <Col md={2} sm={12}>  

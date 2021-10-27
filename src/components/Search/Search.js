@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import {InputGroup, FormControl, Form} from "react-bootstrap";
-
+import { useHistory } from 'react-router';
 
 
 
 const Search = ({ findCharacter }) => {
     const [character, setCharacter] = useState("");
+    const history = useHistory();
 
     const getCharactersInfo = (e) => {
        e.preventDefault();
        findCharacter(character);
+       history.push("/characters");
     }
 
     return ( 
