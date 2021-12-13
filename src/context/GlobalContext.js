@@ -29,6 +29,7 @@ export const ContextProvider = ({children}) => {
 
     const addHero = (character) => {
         dispatch({type: 'ADD_HERO', payload: character})
+        localStorage.setItem('selectedHeros', JSON.stringify(character))
     };
     const deleteHero = ({id}) => {
         dispatch({type: 'DELETE_HERO', payload: id})

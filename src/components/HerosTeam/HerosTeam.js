@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import {Row, Col, Card, Button} from 'react-bootstrap';
 import { GlobalContext } from '../../context/GlobalContext';
 
@@ -7,11 +7,6 @@ const HerosTeam = () => {
 
     const {selectedHeros, deleteHero} = useContext(GlobalContext);
 
-    useEffect(() => {
-        localStorage.setItem('hero', ([{selectedHeros}]));
-    },[selectedHeros]);
-
-    console.log(selectedHeros);
 
     return (
         <Row className="justify-content-center" >  
