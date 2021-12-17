@@ -1,17 +1,23 @@
-import { useContext } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import {Row, Col, Card, Button} from 'react-bootstrap';
 import { GlobalContext } from '../../context/GlobalContext';
-
+import { useHistory } from "react-router";
 
 const HerosTeam = () => {
-
+    const history = useHistory();
     const {selectedHeros, deleteHero} = useContext(GlobalContext);
-
+    
+    const handleClick = () => {
+        history.push('/search');
+    }
+    
 
     return (
-        <Row className="justify-content-center" >  
-            {selectedHeros.length > 1 &&
-            selectedHeros.map(hero => (
+        <>
+        <button onClick={handleClick}>Select your hero</button>
+        <Row className="justify-content-center" > 
+            {selectedHeros.length > 0 &&
+                selectedHeros.map(hero => (
                 <Col md={2} sm={12} key={hero.id}>
                 <Card style={{ width: '7rem' }} >
                     <Card.Img variant="top" src={hero.image.url}/>
@@ -26,6 +32,7 @@ const HerosTeam = () => {
             </Col>
             ))}
         </Row>
+    </>
      );
 }
  

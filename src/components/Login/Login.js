@@ -9,12 +9,14 @@ const Login = () => {
     const [userEmail, setUserEmail] = useState('');
     const [userPassword, setUserPassword] = useState('');
     const {getData} = useLogin();
+    const history = useHistory();
 
 
     
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        getData({userEmail, userPassword})
+        await getData({userEmail, userPassword})
+        await history.push('/');
     };
 
     return (
