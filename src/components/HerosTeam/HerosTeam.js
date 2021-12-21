@@ -1,7 +1,8 @@
-import { useEffect, useState, useContext } from 'react';
+import { useContext } from 'react';
 import {Row, Col, Card, Button} from 'react-bootstrap';
 import { GlobalContext } from '../../context/GlobalContext';
 import { useHistory } from "react-router";
+import HerosStats from '../HerosStats/HerosStats';
 
 const HerosTeam = () => {
     const history = useHistory();
@@ -14,7 +15,7 @@ const HerosTeam = () => {
 
     return (
         <>
-        <button onClick={handleClick}>Select your hero</button>
+        <Button variant="secondary" onClick={handleClick}>Select your hero</Button>
         <Row className="justify-content-center" > 
             {selectedHeros.length > 0 &&
                 selectedHeros.map(hero => (
@@ -31,6 +32,7 @@ const HerosTeam = () => {
                 </Card>     
             </Col>
             ))}
+            <HerosStats />
         </Row>
     </>
      );

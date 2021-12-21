@@ -19,7 +19,7 @@ export const useLogin = () => {
                 res => res.data);
             setJWT(token);
             localStorage.setItem('jwt', JSON.stringify(token));
-            alert('ya estas logeado')
+            alert('ya estas logeado');
         } catch (e) {
             alert(e);
         }
