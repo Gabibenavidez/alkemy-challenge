@@ -1,5 +1,6 @@
 import {useContext, useState, useEffect} from "react";
 import { GlobalContext } from '../../context/GlobalContext';
+import "../HerosStats/herostats.css"
 
 
 
@@ -30,13 +31,6 @@ const HerosStats = () => {
     }, [selectedHeros])
     
  
-    let totalStats = new Array(  totalCombatPowerstat, 
-                                totalDurabilityPowerstat, 
-                                totalIntelligencePowerstat, 
-                                totalPowerPowerstat, 
-                                totalSpeedPowerstat, 
-                                totalStrengthPowerstat);
-    console.log(totalStats);
 
     var totalCombatPowerstat = combatPowerstat.reduce((counter, total) => counter + total, 0);
     var totalDurabilityPowerstat = durabilityPowerstat.reduce((counter, total) => counter + total, 0);
@@ -48,12 +42,24 @@ const HerosStats = () => {
     var totalWeight = weight.reduce((counter, total) => counter + total, 0);
 
 
-    var averageHeight = totalHeight / height.length;
-    var averageWeight = totalWeight / weight.length;
-    //console.log(totalCombatPowerstat, totalDurabilityPowerstat, totalIntelligencePowerstat, totalPowerPowerstat, totalSpeedPowerstat, totalStrengthPowerstat)
+    var averageDecimalHeight = totalHeight / height.length;
+    var averageDecimalWeight = totalWeight / weight.length;
+    var averageHeight = Math.trunc(averageDecimalHeight);
+    var averageWeight = Math.trunc(averageDecimalWeight);
+
+    var totalPowerstats = Math.max(totalCombatPowerstat, totalDurabilityPowerstat, totalIntelligencePowerstat, totalPowerPowerstat, totalSpeedPowerstat, totalStrengthPowerstat )
+    
+    var teamCategory = totalCombatPowerstat === totalPowerstats ? "Combat":
+                    totalDurabilityPowerstat === totalPowerstats ? "Durability":
+                    totalIntelligencePowerstat === totalPowerstats ? "Intelligence":
+                    totalPowerPowerstat === totalPowerstats ? "Power":
+                    totalSpeedPowerstat === totalPowerstats ? "Speed":
+                    totalStrengthPowerstat === totalPowerstats ? "Strength" : null;
+                    
 
     return (
-        <div>
+        <div className="stats">
+            <h3>Team Category: {teamCategory} </h3>
             <h5>Combat Powerstats: {totalCombatPowerstat} </h5>
             <h5>Durability Powerstats: {totalDurabilityPowerstat} </h5>
             <h5>Intelligence Powerstats: {totalIntelligencePowerstat} </h5>

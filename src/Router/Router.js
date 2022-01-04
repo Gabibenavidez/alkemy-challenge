@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from "react";
-import ReactDOM from "react-dom";
 import {
   Switch,
   useLocation,
@@ -10,30 +9,33 @@ import Login from "../components/Login/Login";
 import HerosTeam from "../components/HerosTeam/HerosTeam";
 import Search from "../components/Search/Search";
 import Characters from "../components/Characters/Characters";
-import Context, { UserContextProvider } from "../context/userContext";
+import Context from "../context/userContext";
 import { useGet } from "../hooks/useGet";
-import Logout from "../components/Login/Logout";
+import NavBar from "../components/NavBar/NavBar";
+import HeroDetail from "../components/HeroDetail/HeroDetail";
 
 
 const Router = () => {
     const [endpoint, setEndpoint] = useState();
     const [data, loading, error] = useGet(endpoint);
+    const [heroDetail, setHeroDetail] = useState();
     const {jwt} = useContext(Context);
     const location = useLocation();
     const history = useHistory();
-    console.log(location);
 
     const findCharacter = (character) => {
         setEndpoint(character);
       }
-
+    const detailHero = (hero) => {
+        setHeroDetail(hero);
+    }
       useEffect(() => {
-        if (!jwt && location.pathname != '/login') {
+        if (!jwt && location.pathname !== '/login') {
           alert('Debes logearte');
           return (
                 history.push('/login')
           )}
-      }, [location])
+      }, [location, history, jwt])
 
     return (
             <Switch>
@@ -41,16 +43,20 @@ const Router = () => {
                 <Login />
               </Route>
               <Route path="/" exact >
-                <Logout />
-                <HerosTeam />
+                <NavBar />
+                <HerosTeam detailHero={detailHero} />
               </Route>
               <Route path="/search">
-                <Logout />
+                <NavBar />
                 <Search findCharacter={findCharacter} />
               </Route>
               <Route path="/characters">
-                <Logout />
+                <NavBar />
                 <Characters characters={data.results} />
+              </Route>
+              <Route path="/detail">
+                <NavBar />
+                <HeroDetail hero={heroDetail} />
               </Route>
             </Switch>
     ) 

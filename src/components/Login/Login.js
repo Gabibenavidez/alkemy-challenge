@@ -1,11 +1,12 @@
-import {Button, Form} from 'react-bootstrap';
+import React from "react";
+import "../Login/login.css"
 import { useState } from 'react';
 import { useHistory } from "react-router";
 import { useLogin }  from '../../hooks/useLogin';
 
 
-
 const Login = () => {
+
     const [userEmail, setUserEmail] = useState('');
     const [userPassword, setUserPassword] = useState('');
     const {getData} = useLogin();
@@ -19,22 +20,39 @@ const Login = () => {
         await history.push('/');
     };
 
-    return (
-       <Form onSubmit={handleSubmit}>
-           <input
-                placeholder="email"
-                onChange={(e) => setUserEmail(e.target.value)}
-                value={userEmail}
-           />
-           <input
-                placeholder="password"
-                onChange={(e) => setUserPassword(e.target.value)}
-                value={userPassword}
-           />
-           <Button type="submit">Login</Button>
-       </Form>
+
+    return ( 
+                <form className='box login p-5' onSubmit={handleSubmit} >
+                <div className='field py-3'>
+                    <p className='control'>
+                    <input
+                        onChange={(e) => setUserEmail(e.target.value)}
+                        value={userEmail}
+                        placeholder='Email'
+                        required
+                    />
+                    </p>
+                </div>
+            <div className='field py-3'>
+                <p className='control'>
+                <input
+                    onChange={(e) => setUserPassword(e.target.value)}
+                    value={userPassword}
+                    placeholder='Password'
+                    type='password'
+                    required
+                />
+                </p>
+            </div>
+            <div className='field py-3'>
+                <p className='control'>
+                <button type='submit' className='btn btn-primary'>
+                    Login
+                </button>
+                </p>
+            </div>
+            </form>
      );
 }
-
  
 export default Login;

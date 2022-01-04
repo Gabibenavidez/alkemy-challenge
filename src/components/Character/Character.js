@@ -1,24 +1,24 @@
 import {Col, Card, Button } from "react-bootstrap";
 import { useContext } from 'react';
 import { GlobalContext } from '../../context/GlobalContext';
-import { useHistory } from "react-router";
+
 
 const Character = ({character}) => {
     const {addHero} = useContext(GlobalContext);
-    const history = useHistory();
+    
 
     const handleNewHero = (e) => {
+        alert("already in your team")
         addHero(character);
-        history.push("/")
     }
 
     
     return (  
-        <Col md={2} sm={12}>  
-            <Card style={{ width: '7rem' }}>
+        <Col md={2} sm={2}>  
+            <Card className="bg-dark" style={{ width: '7rem' }}>
                 <Card.Img variant="top" src={character.image.url} />
                     <Card.Body>
-                        <Card.Title>{character.name} </Card.Title>
+                        <Card.Title className="text-light">{character.name} </Card.Title>
                         <Button className="btn btn-primary btn-sm" 
                         onClick={handleNewHero}>
                         Add hero</Button>

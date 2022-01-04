@@ -1,40 +1,89 @@
 import { useContext } from 'react';
 import {Row, Col, Card, Button} from 'react-bootstrap';
 import { GlobalContext } from '../../context/GlobalContext';
-import { useHistory } from "react-router";
 import HerosStats from '../HerosStats/HerosStats';
+import "../HerosTeam/HerosTeam.css"
+import { useHistory } from 'react-router';
 
-const HerosTeam = () => {
-    const history = useHistory();
+
+const HerosTeam = ({detailHero}) => {
     const {selectedHeros, deleteHero} = useContext(GlobalContext);
-    
-    const handleClick = () => {
-        history.push('/search');
+    const history = useHistory();
+
+    const handleClick = (hero) => {
+        detailHero(hero);
+        history.push('/detail');
     }
-    
 
     return (
-        <>
-        <Button variant="secondary" onClick={handleClick}>Select your hero</Button>
         <Row className="justify-content-center" > 
             {selectedHeros.length > 0 &&
                 selectedHeros.map(hero => (
                 <Col md={2} sm={12} key={hero.id}>
-                <Card style={{ width: '7rem' }} >
+                <Card className="bg-dark  text-light"  >
                     <Card.Img variant="top" src={hero.image.url}/>
                     <Card.Body>
-                        <Card.Title>{hero.name}</Card.Title>
+                        <Card.Title className="text-center">{hero.name}</Card.Title>
                             <Card.Text>
-                            {hero.powerstats.power}
+                            <tr>
+                                <th>Intelligence </th>
+                                <td className="text-center">
+                                    <span>
+                                    {hero.powerstats.intelligence}
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Power </th>
+                                <td className="text-center">
+                                    <span>
+                                    {hero.powerstats.power}
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Speed </th>
+                                <td className="text-center">
+                                    <span>
+                                    {hero.powerstats.speed}
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Strength </th>
+                                <td className="text-center">
+                                    <span>
+                                    {hero.powerstats.strength}
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Combat </th>
+                                <td className="text-center">
+                                    <span>
+                                    {hero.powerstats.combat}
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Durability </th>
+                                <td className="text-center">
+                                    <span>
+                                    {hero.powerstats.durability}
+                                    </span>
+                                </td>
+                            </tr>
                             </Card.Text>
-                        <Button variant="danger" onClick={() => deleteHero(hero)}>Remove Hero</Button>
+                        <Row>
+                            <Button variant="danger" className="remove btn btn-sm" onClick={() => deleteHero(hero)}>Remove</Button>
+                            <Button className="detail btn btn-sm" onClick={() => handleClick(hero)}>Detail</Button>
+                        </Row>
                     </Card.Body>
                 </Card>     
             </Col>
             ))}
             <HerosStats />
         </Row>
-    </>
      );
 }
  

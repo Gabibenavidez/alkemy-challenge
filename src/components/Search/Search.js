@@ -15,9 +15,9 @@ const Search = ({ findCharacter }) => {
     }
 
     return ( 
-       <Form onSubmit={getCharactersInfo}>
+       <Form onSubmit={getCharactersInfo} >
            <InputGroup>
-               <FormControl 
+               <FormControl className="bg-dark"
                 placeholder="Find your character..."
                 onChange={(e) => setCharacter(e.target.value)}
                 value={character}
